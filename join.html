@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join Club</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-join">
+
+<header>
+<h1>Join a Club</h1>
+<nav>
+<a href="index.html">Home</a>
+<a href="clubs.html">Clubs</a>
+<a href="join.html">Join Club</a>
+</nav>
+</header>
+
+<main class="join-layout">
+
+	<section class="card join-card">
+		<h2>Register for a Club</h2>
+		<p class="muted">Fill in your details to join. Your registration will appear in the list.</p>
+
+		<form id="joinForm" class="form-card">
+			<label for="name">Full Name</label>
+			<input type="text" id="name" placeholder="Your Name" required>
+
+			<label for="club">Club</label>
+			<select id="club" required>
+				<option value="">Select Club</option>
+				<option>Drama Club</option>
+				<option>Coding Club</option>
+				<option>Sports Club</option>
+			</select>
+
+			<select id="sportOption" style="display:none;">
+				<option value="">Select Activity</option>
+				<option>Swimming</option>
+				<option>Chess</option>
+				<option>Football</option>
+				<option>Hockey</option>
+				<option>Art</option>
+			</select>
+
+			<div class="join-actions">
+				<button type="submit" id="joinBtn">Join</button>
+				<label class="toggle">
+					<input type="checkbox" id="toastToggle" checked>
+					<span class="toggle-slider"></span>
+					<span class="toggle-label">Success notification</span>
+				</label>
+			</div>
+			<p id="message"></p>
+		</form>
+	</section>
+
+	<section class="card members-card">
+		<div class="members-header">
+			<h2>Members</h2>
+			<span class="stat">Participants: <strong id="memberCount">0</strong></span>
+		</div>
+		<ul id="membersList"></ul>
+		<button type="button" id="clearAllBtn" class="danger-btn">Clear All Members</button>
+	</section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

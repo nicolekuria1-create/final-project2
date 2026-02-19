@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Log In</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-auth">
+<header>
+  <h1>Log In</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="clubs.html">Clubs</a>
+    <a href="join.html">Join Club</a>
+    <a href="signup.html">Sign Up</a>
+    <a href="login.html">Log In</a>
+  </nav>
+</header>
+
+<div class="palette-strip" aria-hidden="false">
+  <div class="swatch" title="Petal Frost" style="background:#edd2e0"></div>
+  <div class="swatch" title="Cotton Rose" style="background:#edbbb4"></div>
+  <div class="swatch" title="Pink Orchid" style="background:#dbabbe"></div>
+  <div class="swatch" title="Lilac Ash" style="background:#baa1a7"></div>
+  <div class="swatch" title="Grey" style="background:#797b84"></div>
+</div>
+<main>
+<section class="card center" style="max-width:520px;margin:28px auto;">
+  <h2>Log In</h2>
+  <form id="loginForm" class="form-card">
+    <label for="email">Email</label>
+    <input id="email" type="email" required>
+
+    <label for="password">Password</label>
+    <input id="password" type="password" required>
+
+    <button type="submit">Log In</button>
+    <p id="loginMessage"></p>
+  </form>
+</section>
+</main>
+<script>
+(function(){
+  function getUsers(){ return JSON.parse(localStorage.getItem('users')) || []; }
+  const form = document.getElementById('loginForm');
+  const msg = document.getElementById('loginMessage');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    if(!user){ msg.textContent = 'Invalid credentials'; msg.style.color='tomato'; return; }
+    localStorage.setItem('currentUser', JSON.stringify({name: user.name, email: user.email}));
+    // show toast and redirect
+    showToast('Logged in — redirecting');
+    setTimeout(()=> location.href = 'index.html', 1000);
+  });
+})();
+</script>
+<style>
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(10px);background:var(--purple-4);color:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.12);opacity:0;transition:transform .22s ease,opacity .22s ease;z-index:9999;font-weight:700}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+<script>
+// small helper (kept in page scope)
+function showToast(text, duration=1100){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=text; document.body.appendChild(t);
+  requestAnimationFrame(()=> t.classList.add('show'));
+  setTimeout(()=>{ t.classList.remove('show'); setTimeout(()=> t.remove(),300); }, duration);
+}
+</script>
+</body>
+</html>
